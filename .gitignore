@@ -1,0 +1,47 @@
+# environment
+.env
+.env.local
+.env.production
+.env.development
+.env.test
+
+# dependencies
+node_modules/
+vendor/
+
+# logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# build
+dist/
+build/
+
+# database
+*.sqlite
+*.db
+
+# python
+__pycache__/
+*.pyc
+venv/
+.venv/
+env/
+*.pyo
+*.pyd
+.python-version
+
+# laravel / php
+/storage/*.key
+
+# AI models (biasanya besar)
+*.pt
+*.pth
+*.h5
