@@ -11,9 +11,9 @@ export function createHomePage() {
   header.className = "et-page-header";
   header.innerHTML = `
     <div>
-      <h1 class="et-page-title">Hello, Eco Hero 🌱</h1>
+      <h1 class="et-page-title" style="background: linear-gradient(90deg, var(--et-gray-900), var(--et-green-dark)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Hello, Eco Hero 🌱</h1>
       <p class="et-page-subtitle">
-        Dispose waste by type, earn points, and redeem rewards.
+        Your daily dashboard for waste tracking and rewards.
       </p>
     </div>
   `;
@@ -23,6 +23,7 @@ export function createHomePage() {
     label: "Start Disposing",
     onClick: () => navigateTo("disposal"),
   });
+  primary.classList.add("et-btn-primary");
   headerActions.appendChild(primary);
   header.appendChild(headerActions);
 
@@ -33,47 +34,65 @@ export function createHomePage() {
 
   const summaryBody = document.createElement("div");
   summaryBody.innerHTML = `
-    <p style="font-size:13px;margin-bottom:10px;">
-      Thanks for sorting your waste. Every item you sort means less in the landfill.
-    </p>
+    <div style="padding: 16px; background: rgba(16, 185, 129, 0.05); border-radius: 12px; margin-bottom: 20px;">
+      <p style="font-size:14px; color: var(--et-green-dark); font-weight: 500; line-height: 1.5;">
+        Every item you sort means less in the landfill. Thank you for your continued contribution!
+      </p>
+    </div>
     <ul class="et-list">
       <li class="et-list-item">
-        <span>Total points</span>
-        <span><strong>${reward.points}</strong> pts</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 18px;">✨</span> 
+          <span>Total Points Earned</span>
+        </span>
+        <span style="font-size: 16px;"><strong>${reward.points}</strong> pts</span>
       </li>
       <li class="et-list-item">
-        <span>Total items disposed</span>
-        <span><strong>${reward.totalItems}</strong> items</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 18px;">♻️</span> 
+          <span>Total Items Recycled</span>
+        </span>
+        <span style="font-size: 16px;"><strong>${reward.totalItems}</strong> items</span>
       </li>
       <li class="et-list-item">
-        <span>Level</span>
-        <span>${reward.level}</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 18px;">🏆</span> 
+          <span>Current Impact Level</span>
+        </span>
+        <span style="font-size: 16px; color: var(--et-green); font-weight: 700;">${reward.level}</span>
       </li>
     </ul>
   `;
 
   const summaryCard = createCard({
-    title: "Green Action Summary",
-    subtitle: "Quick view of your contribution.",
+    title: "Impact Summary",
+    subtitle: "Lifetime contribution statistics.",
     badge: "Live",
     body: summaryBody,
   });
 
   const progressBody = document.createElement("div");
   const target = 500;
-  progressBody.appendChild(
-    createRewardProgressBar({ current: reward.points, target })
-  );
+
+  const progWrapper = document.createElement("div");
+  progWrapper.style.padding = "20px 0";
+  progWrapper.appendChild(createRewardProgressBar({ current: reward.points, target }));
+  progressBody.appendChild(progWrapper);
+
   const hint = document.createElement("div");
   hint.className = "et-input-help";
-  hint.style.marginTop = "8px";
-  hint.textContent =
-    "Tip: Clean plastic gives the highest points per item.";
+  hint.style.padding = "12px";
+  hint.style.background = "var(--et-gray-100)";
+  hint.style.borderRadius = "8px";
+  hint.style.display = "flex";
+  hint.style.alignItems = "center";
+  hint.style.gap = "8px";
+  hint.innerHTML = `<span style="font-size: 16px;">💡</span> <span><strong>Pro Tip:</strong> Clean plastic and metals yield the highest point multipliers.</span>`;
   progressBody.appendChild(hint);
 
   const progressCard = createCard({
-    title: "Next Reward",
-    subtitle: "Earn enough points to unlock new rewards.",
+    title: "Journey to Next Tier",
+    subtitle: "Unlock exclusive merchant rewards.",
     body: progressBody,
   });
 
